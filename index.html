@@ -1,0 +1,169 @@
+<!-- Coin Flip HTML -->
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+  <head>
+        <meta charset='UTF-8'>
+        <title>Coding Bootcamp - Word Guess</title>
+    
+        <!-- Bootstrap CDN -->
+        <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  </head>
+
+  <body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Coin Flipper</h1>
+            <h3>Select either Heads or Tails.</h3>
+            <h3>Then flip the coin</h3>
+            <h3>Click Reset to play again.</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h4>Select Heads or Tails</h4>
+                        </div>
+                    </div>
+            
+                    <div class="card-body text-center">
+                        <button class="btn btn-default choose" value="heads" id="heads">Heads</button>
+                        <button class="btn btn-default choose" value="tails" id="tails">Tails</button>
+                        <button class="btn btn-default reset" value="reset" id="reset">Reset</button>
+                    </div>
+
+                    <div class="card card-default">
+                            <div class="card-title">
+                                <h3>You selected: <span id="your-selection"></span></h3>
+                            </div>
+                            <div class="card-body">
+                                <hr />
+                                <h4 id="wins"></h4>
+                                <br>
+                                <hr />
+                                <br>
+                                <h4 id="losses"></h4>
+                            </div>
+                        </div>
+
+
+
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h4>Click to flip!</h4>
+                        </div>
+                    </div>
+            
+                    <div class="card-body text-center">
+                        <button class="btn btn-default" id="flip">Flip Coin</button>
+                    </div>
+
+                    <div id="result">
+                        <div id="image"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                
+            </div>
+        </div>
+    </div>
+    
+
+
+
+
+      
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    var array = ["heads", "tails"];
+    var userSelected = false;
+    var wins = 0;
+    var losses = 0;
+    var computerFlip;
+    var userChoice
+    var reset = true;
+
+   
+
+     $(".choose").on("click", function() {
+         if(reset) {
+         userChoice = $(this).val();
+         console.log("this is user choice: " + userChoice);
+          $("#your-selection").text(userChoice);
+          userSelected = true;
+         }
+    });
+
+       
+    $("#flip").on("click", function() {
+        if (userSelected) {
+        reset = false;
+        computerFlip = array[Math.floor(Math.random() * 2)];
+        console.log("this is the computers flip: " + computerFlip);
+
+            
+        if (computerFlip === "heads") {
+        $("#image").html("<img src='http://random-ize.com/coin-flip/us-quarter/us-quarter-front.jpg' />");
+        check();
+         } else {
+            $("#image").html("<img src='http://random-ize.com/coin-flip/us-quarter/us-quarter-back.jpg' />");
+        check();
+         } 
+        }        
+        else {
+            alert("Select Heads or Tails.");
+        }
+    });
+
+
+    $("#reset").on("click", function() {
+        reset();
+    });
+
+
+
+    function check() {
+        if (computerFlip === userChoice) {
+            console.log(" random number: " + computerFlip + "user guess: " + userChoice);
+            wins++;
+            $("#wins").text("Wins: " + wins);
+                       
+        } else {
+            losses++;
+            $("#losses").text("losses: " + losses);
+            }
+    };
+
+    function reset() {
+        $("#image").empty();
+        $("#your-selection").empty();
+        reset = true;
+    };
+
+    
+    
+    </script>
+
+    </body>
+
+    </html>
+
+      
+    
